@@ -1,0 +1,112 @@
+[
+  {
+    "id": "3ca5fd22-d0cf-4313-bf1e-281597ee50cb",
+    "username": "Dios",
+    "displayName": "Dios",
+    "role": "superadmin",
+    "email": "a@gmail.com",
+    "passwordHash": "superadmin20260905:b7ba0e2ff978b2a1ce15f0b1e0a952a0cc8cbadef3030868d830fa01a845d7d3590a9c5c452362189795ffe52f4043134e574127f8c9c0eae7f44f6ab303490b",
+    "wallet": {
+      "balance": 99736,
+      "currency": "VIBRA"
+    },
+    "level": "Bronce",
+    "status": "Activo",
+    "createdAt": "2026-09-05T20:46:58.187Z",
+    "ownedCosmetics": [
+      "emblem-vip",
+      "entry-spark",
+      "entry-neon",
+      "frame-live",
+      "badge-rising",
+      "emblem-crown",
+      "badge-star",
+      "theme-night",
+      "frame-neon",
+      "frame-mint",
+      "frame-gold",
+      "frame-ruby"
+    ],
+    "bio": "",
+    "location": "",
+    "avatarUrl": "",
+    "cosmetics": {
+      "frame": "neon",
+      "theme": "night",
+      "badge": "star"
+    },
+    "totalConnectedMs": 34167274,
+    "connectionBadges": [
+      "connected-1h",
+      "connected-2h",
+      "connected-3h"
+    ]
+  },
+  {
+    "id": "de182cf7-d695-4844-9459-13013e0c382d",
+    "username": "lol",
+    "email": "2a@gmail.com",
+    "passwordHash": "9f2a2f205ba908fc4e26865da068c188:4614dcc3800e6dab9bee72dc2d30a01fcbe1eb40af890ce388eb087823383dc1e0993b64998f9429c4f59a3deca93b1f245b4a6c058c05734e1885a044649aba",
+    "wallet": {
+      "balance": 0,
+      "currency": "VIBRA"
+    },
+    "level": "Bronce",
+    "status": "Activo",
+    "createdAt": "2026-09-05T20:49:47.157Z"
+  },
+  {
+    "id": "cc2369fc-4a65-46d0-aa53-423e335ad991",
+    "username": "fsfsd",
+    "email": "sdsds@gmail.com",
+    "passwordHash": "2fdfb4b6dd2a622721461a76e5a02d43:7cc4d37337ccac79ca65ae4346584ee1e349d5a04afa38fb1158af42fe9f12ef02e33d205d19f37a0e8ef0d007a8c90fb5eb037f03c2712a043400085398dd2f",
+    "wallet": {
+      "balance": 0,
+      "currency": "VIBRA"
+    },
+    "level": "Bronce",
+    "status": "Activo",
+    "createdAt": "2026-09-05T20:50:14.436Z"
+  },
+  {
+    "id": "88a192f8-e4a3-4122-85c0-9a92b1b6cf53",
+    "username": "hthgfh",
+    "email": "fghfgh@df.com",
+    "passwordHash": "cdbd6dc783e2411b8414b3e8c6194785:86348727ad4d9089e0177be6f13ffcef321f9ab98db5ff9a5db979475c55bf0a34c2053a8e68ceb0e95bd755e2b78b2d4552f12590dc6c5a6de0dc64c1055580",
+    "wallet": {
+      "balance": 0,
+      "currency": "VIBRA"
+    },
+    "level": "Bronce",
+    "status": "Activo",
+    "createdAt": "2026-09-05T20:51:25.305Z"
+  },
+  {
+    "id": "e9ccafb1-45c7-448f-b063-dfb01d3761b4",
+    "username": "thfhf",
+    "displayName": "thfhf",
+    "role": "user",
+    "newUser": true,
+    "bio": "",
+    "location": "",
+    "avatarUrl": "",
+    "cosmetics": {
+      "frame": "classic",
+      "theme": "ivory",
+      "badge": "newcomer"
+    },
+    "ownedCosmetics": [
+      "frame-gold",
+      "theme-night"
+    ],
+    "email": "fhth@gmail.com",
+    "passwordHash": "cf87c990cb234cbf9303e5e86b413c3a:cd7cb90d17415b365bab2f40e64011faa156fed718ec7bc20d2939b836999a50cf67e996eb8daf83972b3f3e40ab2ac1dccb955db88ddf6aa61dfba560ab0a4a",
+    "wallet": {
+      "balance": 20,
+      "currency": "VIBRA"
+    },
+    "level": "Bronce",
+    "status": "Activo",
+    "createdAt": "2026-09-05T21:14:03.591Z"
+  }
+]
