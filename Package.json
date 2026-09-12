@@ -1,0 +1,17 @@
+{
+  "name": "liveme-clone",
+  "version": "1.0.0",
+  "description": "Plataforma de streaming en vivo estilo LiveMe",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "https": "node scripts/generate-local-cert.js && node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.1.0",
+    "selfsigned": "^2.4.1",
+    "socket.io": "^4.8.1"
+  }
+}

@@ -1,0 +1,2 @@
+cd "c:\Users\haze\Documents\LivemeClone"
+npm start
