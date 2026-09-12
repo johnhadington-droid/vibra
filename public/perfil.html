@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi perfil | VibraLive</title>
+    <link rel="stylesheet" href="Style.css.css">
+    <style>
+        .profile-page { min-height: 100vh; background: #101413; color: #e8e5dc; }
+        .profile-nav { height: 82px; padding: 0 6%; display: flex; align-items: center; justify-content: space-between; background: rgba(13,17,16,.94); border-bottom: 1px solid rgba(255,178,155,.2); }
+        .profile-brand { color: #e8e5dc; font-family: "Playfair Display", serif; font-size: 25px; text-decoration: none; }
+        .profile-brand span { color: #ffb29b; }
+        .profile-nav-actions { display: flex; gap: 12px; align-items: center; }
+        .profile-nav-actions a, .profile-nav-actions button { border: 0; border-radius: 22px; padding: 11px 18px; color: var(--black); background: transparent; font: inherit; cursor: pointer; text-decoration: none; }
+        .profile-nav-actions .profile-logout { border: 1px solid var(--border); }
+        .profile-layout { width: min(1100px, 88%); margin: 55px auto; display: grid; grid-template-columns: .85fr 1.4fr; gap: 30px; align-items: start; }
+        .profile-hero, .profile-editor, .profile-stat { border: 1px solid rgba(244,241,232,.14); border-radius: 18px; background: #19201d; box-shadow: 0 22px 60px rgba(0,0,0,.24); }
+        .profile-hero { padding: 38px 30px; text-align: center; position: relative; overflow: hidden; }
+        .profile-hero::before { content: ""; position: absolute; inset: 0 0 auto; height: 105px; background: linear-gradient(135deg, rgba(240,111,82,.22), rgba(159,200,180,.08)); pointer-events: none; }
+        .profile-photo { width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 7px solid white; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)) center / cover; color: white; font: 60px "Playfair Display", serif; box-shadow: 0 15px 35px rgba(143,107,19,.2); }
+        .profile-photo[data-frame="gold"] { border-color: #d4af37; box-shadow: 0 0 0 6px #f4e4a5, 0 15px 35px rgba(143,107,19,.28); }
+        .profile-photo[data-frame="live"] { border-color: #f06f52; box-shadow: 0 0 0 6px rgba(240,111,82,.3), 0 15px 35px rgba(240,111,82,.3); }
+        .profile-photo[data-frame="ruby"] { border-color: #e84362; box-shadow: 0 0 0 6px rgba(232,67,98,.32), 0 15px 35px rgba(232,67,98,.3); }
+        .profile-photo[data-frame="mint"] { border-color: #9fc8b4; box-shadow: 0 0 0 6px rgba(159,200,180,.3), 0 15px 35px rgba(87,174,139,.26); }
+        .profile-photo[data-frame="neon"] { border-color: #f4ed63; box-shadow: 0 0 0 5px #f06f52, 0 0 0 9px #9fc8b4, 0 15px 35px rgba(244,237,99,.25); }
+        .profile-hero:has(.admin-crown.visible) { border-color: #f4ed63; box-shadow: 0 0 0 1px rgba(244,237,99,.4), 0 22px 70px rgba(240,111,82,.28); }
+        .profile-hero h1 { position: relative; z-index: 1; font: 34px "Playfair Display", serif; color: #f4f1e8; }
+        .profile-name-emblem { display: inline-grid; place-items: center; width: 27px; height: 27px; margin-left: 4px; border: 1px solid rgba(244,237,99,.75); border-radius: 50%; background: rgba(244,237,99,.16); color: #f4ed63; font: 14px "Manrope", sans-serif; vertical-align: 5px; }
+        .admin-crown { display: none; width: max-content; margin: 0 auto 6px; color: #9a7115; font-size: 12px; font-weight: 800; letter-spacing: 1.4px; }
+        .admin-crown.visible { display: block; }
+        .admin-crown::before { content: "♛"; margin-right: 5px; color: #d4af37; font-size: 18px; vertical-align: -2px; }
+        .superadmin-profile .admin-crown { padding: 7px 14px; border: 1px solid rgba(244,237,99,.65); border-radius: 999px; background: linear-gradient(135deg, rgba(244,237,99,.18), rgba(240,111,82,.22)); color: #f4ed63; font-size: 13px; letter-spacing: 2px; box-shadow: 0 0 22px rgba(244,237,99,.28); animation: superadminPulse 2.2s ease-in-out infinite; }
+        .superadmin-profile .admin-crown::before { color: #fff; }
+        .superadmin-profile .profile-hero::after { content: "ACCESO TOTAL · IDENTIDAD ÚNICA"; position: relative; display: block; margin-top: 22px; color: #f4ed63; font-size: 9px; font-weight: 900; letter-spacing: 1.8px; }
+        .superadmin-profile .profile-hero h1 { color: #fff; text-shadow: 0 0 18px rgba(244,237,99,.38); }
+        @keyframes superadminPulse { 0%, 100% { box-shadow: 0 0 14px rgba(244,237,99,.2); } 50% { box-shadow: 0 0 30px rgba(244,237,99,.52); } }
+        .new-user-emblem { display: none; width: max-content; margin: 0 auto 6px; padding: 3px 8px; border-radius: 10px; background: #e8cc72; color: #6f520d; font-size: 10px; font-weight: 800; letter-spacing: 1px; }
+        .new-user-emblem.visible { display: block; }
+        .profile-handle { margin: 7px 0 18px; color: #a8b0a9; }
+        .profile-bio { min-height: 42px; color: #c6cbc5; line-height: 1.6; }
+        .profile-editor { padding: 34px; }
+        .profile-editor h2 { margin-bottom: 8px; font: 30px "Playfair Display", serif; }
+        .profile-editor > p { margin-bottom: 25px; color: var(--gray); }
+        .profile-editor .profile-edit-fee { margin-top: -14px; color: var(--gold-dark); font-size: 12px; font-weight: 800; }
+        .profile-catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 18px; margin: 0 0 25px; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .profile-catalog-item { display: grid; grid-template-columns: 28px 1fr; gap: 9px; align-items: start; }
+        .profile-catalog-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--cream); color: var(--gold-dark); font-size: 14px; font-weight: 800; }
+        .profile-catalog-item strong { display: block; color: var(--black); font-size: 12px; }
+        .profile-catalog-item span { display: block; margin-top: 3px; color: var(--gray); font-size: 11px; line-height: 1.4; }
+        .profile-form { display: grid; gap: 14px; }
+        .profile-form label { display: grid; gap: 7px; color: #c6cbc5; font-size: 12px; font-weight: 700; }
+        .profile-form input, .profile-form textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(244,241,232,.14); border-radius: 9px; outline: none; background: #101413; color: #f4f1e8; font: inherit; }
+        .profile-form textarea { min-height: 100px; resize: vertical; }
+        .bank-section { margin-top: 12px; padding-top: 18px; border-top: 1px solid var(--border); }
+        .bank-section h3 { margin-bottom: 6px; font: 20px "Playfair Display", serif; }
+        .bank-section small { display: block; margin-bottom: 12px; color: var(--gray); line-height: 1.5; }
+        .bank-status { color: #477044; font-size: 12px; }
+        .cosmetics-title { margin: 18px 0 8px; color: var(--gold-dark); font-size: 13px; letter-spacing: .8px; }
+        .cosmetics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .profile-form select { width: 100%; padding: 13px 10px; border: 1px solid rgba(244,241,232,.14); border-radius: 9px; background: #101413; color: #f4f1e8; font: inherit; }
+        .cosmetic-preview { display: flex; gap: 8px; align-items: center; margin: 2px 0 4px; color: var(--gray); font-size: 12px; }
+        .cosmetic-chip { width: 26px; height: 26px; border-radius: 50%; border: 3px solid var(--gold); background: var(--cream); }
+        .profile-form button { border: 0; border-radius: 24px; padding: 14px; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); color: white; font-weight: 700; cursor: pointer; }
+        .profile-feedback { min-height: 20px; margin: 8px 0 0; color: #477044; font-size: 13px; }
+        .profile-feedback.error { color: #a13d35; }
+        body[data-theme="night"] { background: #191916; color: #f8f6ef; }
+        body[data-theme="night"] .profile-nav, body[data-theme="night"] .profile-hero, body[data-theme="night"] .profile-editor, body[data-theme="night"] .profile-stat { background: #252520; border-color: #4a483d; }
+        body[data-theme="night"] .profile-form input, body[data-theme="night"] .profile-form textarea, body[data-theme="night"] .profile-form select { background: #302f29; color: #f8f6ef; border-color: #575447; }
+        body[data-theme="rose"] { background: #fff4f3; }
+        body[data-theme="rose"] .profile-nav, body[data-theme="rose"] .profile-hero, body[data-theme="rose"] .profile-editor, body[data-theme="rose"] .profile-stat { border-color: #edc9ca; }
+        .profile-stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+        .profile-stat { padding: 22px; }
+        .profile-stat span { display: block; margin-bottom: 7px; color: var(--gray); font-size: 12px; }
+        .profile-stat strong { color: var(--gold-dark); font: 20px "Playfair Display", serif; }
+        .profile-stat.coins-stat { border-color: rgba(244,237,99,.5); background: linear-gradient(135deg, #292719, #19201d); }
+        .profile-stat.coins-stat strong { color: #f4ed63; }
+        .store-section { grid-column: 1 / -1; padding: 34px; border: 1px solid var(--border); border-radius: 18px; background: white; box-shadow: 0 18px 50px rgba(40,35,20,.06); }
+        .store-section h2 { margin-bottom: 8px; font: 30px "Playfair Display", serif; }
+        .store-section > p { margin-bottom: 22px; color: var(--gray); }
+        .store-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .store-item { padding: 18px; border: 1px solid var(--border); border-radius: 14px; background: #fffdf8; }
+        .store-item-image { width: 100%; height: 130px; display: block; object-fit: cover; margin-bottom: 14px; border-radius: 10px; }
+        .store-item h3 { margin-bottom: 7px; font: 19px "Playfair Display", serif; }
+        .store-item p { min-height: 38px; margin-bottom: 14px; color: var(--gray); font-size: 12px; line-height: 1.5; }
+        .store-buy { width: 100%; border: 0; border-radius: 20px; padding: 10px; background: var(--gold-dark); color: white; cursor: pointer; font-weight: 700; }
+        .store-buy:disabled { cursor: default; opacity: .55; }
+        .store-feedback { min-height: 20px; margin-top: 16px; color: #477044; font-size: 13px; }
+        body[data-theme="night"] .store-section, body[data-theme="night"] .store-item { background: #252520; border-color: #4a483d; }
+        body[data-theme="rose"] .store-section, body[data-theme="rose"] .store-item { border-color: #edc9ca; }
+        @media (max-width: 760px) { .store-grid, .cosmetics-grid, .profile-catalog { grid-template-columns: 1fr; } }
+        @media (max-width: 1050px) { .profile-stats { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 760px) { .profile-layout { grid-template-columns: 1fr; } .profile-stats { grid-column: auto; grid-template-columns: repeat(2, 1fr); } .profile-nav { padding: 0 5%; } .profile-brand { font-size: 21px; } }
+    </style>
+</head>
+<body class="profile-page">
+    <header class="profile-nav">
+        <a class="profile-brand" href="/">Vibra<span>Live</span></a>
+        <div class="profile-nav-actions">
+            <a href="/tienda.html">Tienda</a>
+            <button class="profile-logout" id="logoutButton" type="button">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main class="profile-layout">
+        <section class="profile-hero">
+            <div class="profile-photo" id="profilePhoto">V</div>
+            <div class="admin-crown" id="adminCrown">SUPER ADMIN</div>
+            <div class="new-user-emblem" id="newUserEmblem">NUEVO</div>
+            <h1 id="profileName">Mi perfil</h1>
+            <p class="profile-handle" id="profileHandle"></p>
+            <p class="profile-bio" id="profileBio"></p>
+        </section>
+
+        <section class="profile-editor">
+            <p class="section-kicker">TU IDENTIDAD EN VIBRALIVE</p>
+            <h2>Personaliza tu perfil</h2>
+            <p>Comparte quién eres con la comunidad de broadcasters.</p>
+            <p class="profile-edit-fee">Cada edición cuesta $2 USD.</p>
+            <div class="profile-catalog" aria-label="Catálogo de elementos del perfil">
+                <div class="profile-catalog-item"><span class="profile-catalog-icon">A</span><div><strong>Nombre visible</strong><span>El nombre que verá la comunidad.</span></div></div>
+                <div class="profile-catalog-item"><span class="profile-catalog-icon">+</span><div><strong>Foto de perfil</strong><span>Agrega una imagen desde una URL.</span></div></div>
+                <div class="profile-catalog-item"><span class="profile-catalog-icon">M</span><div><strong>Ubicación y bio</strong><span>Cuenta quién eres y desde dónde conectas.</span></div></div>
+                <div class="profile-catalog-item"><span class="profile-catalog-icon">V</span><div><strong>Marco, tema y distintivo</strong><span>Personaliza la apariencia de tu perfil.</span></div></div>
+                <div class="profile-catalog-item"><span class="profile-catalog-icon">$</span><div><strong>Datos SPEI</strong><span>Configura banco, titular y CLABE cifrada.</span></div></div>
+            </div>
+            <form class="profile-form" id="profileForm">
+                <label>Nombre visible<input id="displayName" name="displayName" type="text" maxlength="40" required></label>
+                <label>Foto de perfil<input id="avatarUrl" name="avatarUrl" type="url" placeholder="https://..." ></label>
+                <label>Ubicación<input id="location" name="location" type="text" maxlength="60" placeholder="Ciudad o país"></label>
+                <label>Biografía<textarea id="bio" name="bio" maxlength="180" placeholder="Cuéntale algo a la comunidad"></textarea></label>
+                <p class="cosmetics-title">Cosméticos de perfil</p>
+                <div class="cosmetic-preview"><span class="cosmetic-chip" id="cosmeticPreview"></span><span id="cosmeticLabel">Tu estilo actual</span></div>
+                <div class="cosmetics-grid">
+                    <label>Marco<select id="frame" name="frame"><option value="classic">Clásico</option><option value="gold">Dorado</option><option value="live">Live</option><option value="ruby">Rubí</option><option value="mint">Menta</option><option value="neon">Neón</option></select></label>
+                    <label>Tema<select id="theme" name="theme"><option value="ivory">Marfil</option><option value="night">Noche</option><option value="rose">Rosa</option></select></label>
+                    <label>Distintivo<select id="badge" name="badge"><option value="newcomer">Nuevo</option><option value="rising">En ascenso</option><option value="star">Estrella</option></select></label>
+                </div>
+                <div class="bank-section">
+                    <h3>Datos para recibir por SPEI</h3>
+                    <small>La CLABE se cifra en el servidor y nunca se muestra públicamente.</small>
+                    <label>Banco<input id="bankName" name="bankName" type="text" maxlength="60" placeholder="Nombre del banco"></label>
+                    <label>Titular<input id="accountHolder" name="accountHolder" type="text" maxlength="100" placeholder="Nombre del titular"></label>
+                    <label>CLABE<input id="clabe" name="clabe" inputmode="numeric" maxlength="18" placeholder="18 dígitos"></label>
+                    <small class="bank-status" id="bankStatus"></small>
+                </div>
+                <button type="submit">Guardar cambios · $2 USD</button>
+                <p class="profile-feedback" id="profileFeedback" role="status"></p>
+            </form>
+        </section>
+
+        <section class="profile-stats">
+            <div class="profile-stat"><span>VIBRA</span><strong id="walletValue">0</strong></div>
+            <div class="profile-stat coins-stat"><span>VIBRA Coins</span><strong id="coinsValue">0</strong></div>
+            <div class="profile-stat"><span>Seguidores</span><strong id="followersValue">0</strong></div>
+            <div class="profile-stat"><span>Siguiendo</span><strong id="followingValue">0</strong></div>
+            <div class="profile-stat"><span>Nivel</span><strong id="levelValue">Bronce</strong></div>
+            <div class="profile-stat"><span>Status</span><strong id="statusValue">Activo</strong></div>
+        </section>
+
+        <section class="store-section" id="tienda">
+            <p class="section-kicker">VIBRALIVE SHOP</p>
+            <h2>Compra cosméticos</h2>
+            <p>Usa tus VIBRA para desbloquear marcos, temas y badges para tu perfil.</p>
+            <div class="store-grid" id="storeGrid"><p>Cargando tienda...</p></div>
+            <p class="store-feedback" id="storeFeedback" role="status"></p>
+        </section>
+    </main>
+    <script src="Profile.js"></script>
+</body>
+</html>
